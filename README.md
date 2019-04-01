@@ -21,7 +21,8 @@
 mvn clean install
 ```
 8. swagger地址：http://localhost:8080/swagger-ui.html
-9.效果图：
+
+9. 效果图：
 
 ![输入图片说明](https://images.gitee.com/uploads/images/2018/1211/082825_ac69fdda_1110335.gif "SSM.gif")
 ![输入图片说明](https://images.gitee.com/uploads/images/2018/1211/091443_9ebd78b8_1110335.gif "user.gif")

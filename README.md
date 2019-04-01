@@ -1,53 +1,37 @@
-# SSM
-Spring boot,Mybatis的整合总是很麻烦，在此提供一个已经整合好三大框架的包，可以直接下载导入Myeclipse使用，项目基于Maven做依赖管理。项目基于Mysql自带的Sakila数据库实现了MIS系统中常用的多个功能，运行前请安装好Mysql5.6。
+# Spring-boot-activiti
+  在常用的ERP系统、OA系统的开发中，工作流引擎是一个必不可少的工具。本项目旨在基于Spring boot这一平台，整合业界流行的工作流引擎Activiti，并建立了两个完整的工作流进行演示：请假OA和采购流程。
 
 其中包含的内容如下：
 
-1.Spring boot 1.5.10,Mybatis3.2.2的整合；
+1.不采用activiti自带的用户、角色功能，因为过于简单，转而自行实现一个用户、角色、权限的三级结构，用户到角色，角色到权限均为多对多映射，持久层框架使用mybatis的collection和association标签嵌套实现；
 
-2.前端框架集成了Bootstrap3.3.5，Jquery1.12.3,集成了Bootstrap插件Bootgrid数据表格实现分页，使用Bootstrap的datetimepicker插件实现日期时间选择，后台的分页使用Mybatis的插件pagehelper实现；
+2.使用默认的用户登录后（用户名xiaomi，密码1234），可看到已部署好的两个流程，请假OA和采购流程，其中，请假OA包含了用户任务、排他网关、起始结束事件，较为简单；采购流程除此之外，还使用了异常结束事件、子流程和边界事件的使用；
 
-3.数据库使用Mysql中自带的sakila数据库，使用前，请将application.properties中的spring.datasource.password中的数据库密码设置为自己的；
+3.两个流程均包含了待办任务签收、运行流程进度追踪、已运行完流程历史记录查看的功能，运行流程进度在流程图中以红色标注；
 
-4.实现了sakila中的单表的增删改查和跨表查询，跨表查询包括了Mybatis的1-N和N-1双向映射；
+4.使用时，将流程数据和业务数据相分离，使用业务号（businessKey）建立关联流程数据和业务数据的桥梁，使其相互可以访问,业务数据的主键即为业务号；
 
-5.不再使用作业自动调度框架Quartz实现作业调度，使用spring框架自带的调度器进行作业调度，简化了配置；
+5.本系统所有表单均使用普通表单，而不是activiti的动态表单和外置表单，这样做是为了分表存放业务数据和流程数据;
 
-6.json插件使用阿里的开源fastjson工具,注意低版本的fastjson与swagger不兼容，这里有坑；
+6.系统前端采用基于Bootstrap的模板devoops建立。https://github.com/shenzhanwang/devoops
 
-7.包含了一个文件上传的功能，可上传单个或多个文件；
+7.起始页面入口：http://localhost:8080/login
+使用前，编译(可直接在myeclipse完成)：
+```
+mvn clean install
+```
+8. swagger入口：http://localhost:8080/swagger-ui.html
 
-8.包含了数据表导出为Excel下载的功能，包含了解析Excel内容的API，使用POI实现；
+9.效果图：
 
-9.包含了带验证码的登录功能以及登录权限验证的拦截器, **登录用户名TOM，密码1234** ；
-
-10.要使用Struts2+hibernate+spring的整合，[点击这里进入](https://github.com/shenzhanwang/SSH_maven)  
-
-11.去掉所有JSP，使用HTML代替，有利于前后端分离;
-
-12.整合日志工具log4j2，较log4j1.x有较大性能提升，支持日志文件输出和控制台输出；
-
-13. 整合接口文档swagger2.2.2，入口http://localhost:8080/swagger-ui.html
-
-14. 将后台接口REST化，详情参考https://gitee.com/shenzhanwang/Spring-REST
-
-15. 添加mybatis的动态SQL的使用
-
-访问入口：http://localhost:8080/login
-
-16. 要使用传统spring，切换分支到https://gitee.com/shenzhanwang/SSM/tree/master/
-
-效果图：
-
-![输入图片说明](https://images.gitee.com/uploads/images/2018/1128/125458_22041b77_1110335.gif "SSM.gif")
-
- ![输入图片说明](http://git.oschina.net/uploads/images/2016/1216/145410_018a9ca7_1110335.png "在这里输入图片标题")
-
-![输入图片说明](https://gitee.com/uploads/images/2017/1103/174138_49e9143e_1110335.png "QQ截图20171103174132.png")
-
-![输入图片说明](https://gitee.com/uploads/images/2018/0427/191550_c71b959c_1110335.png "QQ截图20180427190522.png")
-
-![输入图片说明](https://gitee.com/uploads/images/2018/0427/191600_16979257_1110335.png "QQ截图20180427191120.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2018/1211/082825_ac69fdda_1110335.gif "SSM.gif")
+![输入图片说明](https://images.gitee.com/uploads/images/2018/1211/091443_9ebd78b8_1110335.gif "user.gif")
+![输入图片说明](http://git.oschina.net/uploads/images/2016/1116/081734_f50ccb20_1110335.jpeg "在这里输入图片标题")
+![输入图片说明](http://git.oschina.net/uploads/images/2016/1116/081747_e412ab52_1110335.jpeg "在这里输入图片标题")
+![输入图片说明](http://git.oschina.net/uploads/images/2016/1116/081802_2f2bf64c_1110335.jpeg "在这里输入图片标题")
+![输入图片说明](http://git.oschina.net/uploads/images/2016/1116/081810_cbd63187_1110335.jpeg "在这里输入图片标题")
+![输入图片说明](http://git.oschina.net/uploads/images/2016/1116/081820_97a18226_1110335.jpeg "在这里输入图片标题")
+![输入图片说明](http://git.oschina.net/uploads/images/2016/1116/081830_8767776b_1110335.jpeg "在这里输入图片标题")
 
 ### 附录：个人作品索引目录（持续更新）
 

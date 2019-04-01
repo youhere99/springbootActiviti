@@ -39,7 +39,9 @@ import boot.spring.po.User;
 import boot.spring.po.User_role;
 import boot.spring.service.PurchaseService;
 import boot.spring.service.SystemService;
+import io.swagger.annotations.Api;
 
+@Api(tags = "采购流程接口")
 @Controller
 public class PurchaseController {
 	@Autowired

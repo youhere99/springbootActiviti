@@ -53,7 +53,10 @@ import boot.spring.po.User;
 import boot.spring.po.User_role;
 import boot.spring.service.LeaveService;
 import boot.spring.service.SystemService;
+import io.swagger.annotations.Api;
 
+
+@Api(tags = "请假流程接口")
 @Controller
 public class ActivitiController {
 	@Autowired

@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import boot.spring.pagemodel.MSG;
 import boot.spring.service.LoginService;
+import io.swagger.annotations.Api;
 
 
-
+@Api(tags = "登录登出接口")
 @Controller
 public class Login {
 	@Autowired

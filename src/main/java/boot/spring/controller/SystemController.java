@@ -19,8 +19,9 @@ import boot.spring.po.Role;
 import boot.spring.po.User;
 import boot.spring.po.UserRole;
 import boot.spring.service.SystemService;
+import io.swagger.annotations.Api;
 
-
+@Api(tags = "系统管理接口")
 @Controller
 public class SystemController {
 	@Autowired

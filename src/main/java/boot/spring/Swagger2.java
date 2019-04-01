@@ -28,7 +28,7 @@ public class Swagger2 {
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 				.title("springboot利用swagger构建api文档")
-				.description("简单优雅的restful风格")
+				.description("springboot整合activiti工作流引擎")
 				.termsOfServiceUrl("https://gitee.com/shenzhanwang/projects")
 				.version("1.0")
 				.build();

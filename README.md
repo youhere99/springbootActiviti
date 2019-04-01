@@ -15,7 +15,7 @@
 
 6.系统前端采用基于Bootstrap的模板devoops建立。https://github.com/shenzhanwang/devoops
 
-7.起始页面入口：http://localhost:8080/Spring-activiti/login
+7.起始页面入口：http://localhost:8080/login
 使用前，编译(可直接在myeclipse完成)：
 ```
 mvn clean install

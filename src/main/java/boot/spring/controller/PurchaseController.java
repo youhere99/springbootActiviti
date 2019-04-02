@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -41,7 +42,7 @@ import boot.spring.service.PurchaseService;
 import boot.spring.service.SystemService;
 import io.swagger.annotations.Api;
 
-@Api(tags = "采购流程接口")
+@Api(value = "采购流程接口")
 @Controller
 public class PurchaseController {
 	@Autowired
@@ -57,47 +58,47 @@ public class PurchaseController {
 	@Autowired
 	PurchaseService purchaseservice;
 	
-	@RequestMapping("/purchase")
+	@RequestMapping(value="/purchase",method=RequestMethod.GET)
 	String purchase(){
 		return "purchase/purchaseapply";
 	}
 	
-	@RequestMapping("/historypurchaseprocess")
+	@RequestMapping(value="/historypurchaseprocess",method=RequestMethod.GET)
 	String historypurchaseprocess(){
 		return "purchase/historypurchaseprocess";
 	}
 	
-	@RequestMapping("/purchasemanager")
+	@RequestMapping(value="/purchasemanager",method=RequestMethod.GET)
 	String purchasemanager(){
 		return "purchase/purchasemanager";
 	}
 	
-	@RequestMapping("/finance")
+	@RequestMapping(value="/finance",method=RequestMethod.GET)
 	String finance(){
 		return "purchase/finance";
 	}
 	
-	@RequestMapping("/manager")
+	@RequestMapping(value="/manager",method=RequestMethod.GET)
 	String manager(){
 		return "purchase/manager";
 	}
 	
-	@RequestMapping("/pay")
+	@RequestMapping(value="/pay",method=RequestMethod.GET)
 	String pay(){
 		return "purchase/pay";
 	}
 	
-	@RequestMapping("/updateapply")
+	@RequestMapping(value="/updateapply",method=RequestMethod.GET)
 	String updateapply(){
 		return "purchase/updateapply";
 	}
 	
-	@RequestMapping("/receiveitem")
+	@RequestMapping(value="/receiveitem",method=RequestMethod.GET)
 	String receiveitem(){
 		return "purchase/receiveitem";
 	}
 	
-	@RequestMapping("startpurchase")
+	@RequestMapping(value="startpurchase",method=RequestMethod.GET)
 	@ResponseBody
 	String startpurchase(@RequestParam("itemlist")String itemlist,@RequestParam("total")float total,HttpSession session){
 		String userid=(String) session.getAttribute("username");
@@ -113,7 +114,7 @@ public class PurchaseController {
 		return JSON.toJSONString("sucess");
 	}
 	//我发起的采购流程
-	@RequestMapping("mypurchaseprocess")
+	@RequestMapping(value="mypurchaseprocess",method=RequestMethod.GET)
 	@ResponseBody
 	public DataGrid<RunningProcess> mypurchaseprocess(HttpSession session,@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
 		int firstrow=(current-1)*rowCount;
@@ -151,12 +152,12 @@ public class PurchaseController {
 		return grid;
 	}
 	
-	@RequestMapping("/mypurchase")
+	@RequestMapping(value="/mypurchase",method=RequestMethod.GET)
 	String mypurchase(){
 		return "purchase/mypurchase";
 	}
 	
-	@RequestMapping("/puchasemanagertasklist")
+	@RequestMapping(value="/puchasemanagertasklist",method=RequestMethod.GET)
 	@ResponseBody
 	DataGrid<PurchaseTask> puchasemanagertasklist(HttpSession session,@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
 		DataGrid<PurchaseTask> grid=new DataGrid<PurchaseTask>();
@@ -209,7 +210,7 @@ public class PurchaseController {
 		return grid;
 	}
 	
-	@RequestMapping("task/purchasemanagercomplete/{taskid}")
+	@RequestMapping(value="task/purchasemanagercomplete/{taskid}",method=RequestMethod.GET)
 	@ResponseBody
 	public MSG purchasemanagercomplete(HttpSession session,@PathVariable("taskid") String taskid,HttpServletRequest req){
 		String purchaseauditi=req.getParameter("purchaseauditi");
@@ -221,7 +222,7 @@ public class PurchaseController {
 		return new MSG("ok");
 	}
 	
-	@RequestMapping("updatepurchaseapply")
+	@RequestMapping(value="updatepurchaseapply",method=RequestMethod.GET)
 	@ResponseBody
 	public DataGrid<PurchaseTask> updateapply(HttpSession session,@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
 		int firstrow=(current-1)*rowCount;
@@ -255,7 +256,7 @@ public class PurchaseController {
 		return grid;
 	}
 	
-	@RequestMapping("task/updateapplycomplete/{taskid}")
+	@RequestMapping(value="task/updateapplycomplete/{taskid}",method=RequestMethod.GET)
 	@ResponseBody
 	public MSG updateapplycomplete(HttpSession session,@PathVariable("taskid") String taskid,HttpServletRequest req){
 		String updateapply=req.getParameter("updateapply");
@@ -279,7 +280,7 @@ public class PurchaseController {
 		return new MSG("ok");
 	}
 	
-	@RequestMapping("getfinishpurchaseprocess")
+	@RequestMapping(value="getfinishpurchaseprocess",method=RequestMethod.GET)
 	@ResponseBody
 	public DataGrid<HistoryProcess> getHistory(HttpSession session,@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
 		String userid=(String) session.getAttribute("username");
@@ -305,7 +306,7 @@ public class PurchaseController {
 		return grid;
 	}
 	
-	@RequestMapping("/financetasklist")
+	@RequestMapping(value="/financetasklist",method=RequestMethod.GET)
 	@ResponseBody
 	DataGrid<PurchaseTask> financetasklist(HttpSession session,@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
 		DataGrid<PurchaseTask> grid=new DataGrid<PurchaseTask>();
@@ -358,7 +359,7 @@ public class PurchaseController {
 		return grid;
 	}
 	
-	@RequestMapping("task/financecomplete/{taskid}")
+	@RequestMapping(value="task/financecomplete/{taskid}",method=RequestMethod.GET)
 	@ResponseBody
 	public MSG financecomplete(HttpSession session,@RequestParam("total")String total,@PathVariable("taskid") String taskid,HttpServletRequest req){
 		String finance=req.getParameter("finance");
@@ -372,7 +373,7 @@ public class PurchaseController {
 		return new MSG("ok");
 	}
 	
-	@RequestMapping("/managertasklist")
+	@RequestMapping(value="/managertasklist",method=RequestMethod.GET)
 	@ResponseBody
 	DataGrid<PurchaseTask> managertasklist(HttpSession session,@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
 		DataGrid<PurchaseTask> grid=new DataGrid<PurchaseTask>();
@@ -425,7 +426,7 @@ public class PurchaseController {
 		return grid;
 	}
 	
-	@RequestMapping("task/managercomplete/{taskid}")
+	@RequestMapping(value="task/managercomplete/{taskid}",method=RequestMethod.GET)
 	@ResponseBody
 	public MSG managercomplete(HttpSession session,@RequestParam("total")String total,@PathVariable("taskid") String taskid,HttpServletRequest req){
 		String manager=req.getParameter("manager");
@@ -437,7 +438,7 @@ public class PurchaseController {
 		return new MSG("ok");
 	}
 	
-	@RequestMapping("/paytasklist")
+	@RequestMapping(value="/paytasklist",method=RequestMethod.GET)
 	@ResponseBody
 	DataGrid<PurchaseTask> paytasklist(HttpSession session,@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
 		DataGrid<PurchaseTask> grid=new DataGrid<PurchaseTask>();
@@ -490,7 +491,7 @@ public class PurchaseController {
 		return grid;
 	}
 	
-	@RequestMapping("task/paycomplete/{taskid}")
+	@RequestMapping(value="task/paycomplete/{taskid}",method=RequestMethod.GET)
 	@ResponseBody
 	public MSG paycomplete(HttpSession session,@PathVariable("taskid") String taskid,HttpServletRequest req){
 		String userid=(String) session.getAttribute("username");
@@ -500,7 +501,7 @@ public class PurchaseController {
 	}
 	
 	
-	@RequestMapping("/receivetasklist")
+	@RequestMapping(value="/receivetasklist",method=RequestMethod.GET)
 	@ResponseBody
 	DataGrid<PurchaseTask> receivetasklist(HttpSession session,@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
 		int firstrow=(current-1)*rowCount;
@@ -534,7 +535,7 @@ public class PurchaseController {
 		return grid;
 	}
 	
-	@RequestMapping("task/receivecomplete/{taskid}")
+	@RequestMapping(value="task/receivecomplete/{taskid}",method=RequestMethod.GET)
 	@ResponseBody
 	public MSG receivecomplete(HttpSession session,@PathVariable("taskid") String taskid,HttpServletRequest req){
 		String userid=(String) session.getAttribute("username");

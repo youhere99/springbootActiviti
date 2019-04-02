@@ -54,9 +54,10 @@ import boot.spring.po.User_role;
 import boot.spring.service.LeaveService;
 import boot.spring.service.SystemService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 
-@Api(tags = "请假流程接口")
+@Api(value="请假流程接口")
 @Controller
 public class ActivitiController {
 	@Autowired
@@ -76,12 +77,12 @@ public class ActivitiController {
 	@Autowired
 	SystemService systemservice;
 	
-	@RequestMapping("/processlist")
+	@RequestMapping(value="/processlist",method = RequestMethod.GET)
 	String process(){
 		return "activiti/processlist";
 	}
 	
-	@RequestMapping("/uploadworkflow")
+	@RequestMapping(value="/uploadworkflow",method = RequestMethod.GET)
 	public String fileupload(@RequestParam MultipartFile uploadfile,HttpServletRequest request){
 		try{
 			MultipartFile file=uploadfile;
@@ -94,7 +95,7 @@ public class ActivitiController {
 		return "index";
 	}
 	
-	@RequestMapping(value="/getprocesslists")
+	@RequestMapping(value="/getprocesslists",method = RequestMethod.GET)
 	@ResponseBody
 	public DataGrid<Process> getlist(@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
 		int firstrow=(current-1)*rowCount;
@@ -121,7 +122,7 @@ public class ActivitiController {
 	}
 	
 	
-	@RequestMapping("/showresource")
+	@RequestMapping(value="/showresource",method = RequestMethod.GET)
 	public void export(@RequestParam("pdid") String pdid,@RequestParam("resource") String resource,HttpServletResponse response) throws Exception{
 		ProcessDefinition def=rep.createProcessDefinitionQuery().processDefinitionId(pdid).singleResult();
 		InputStream is=rep.getResourceAsStream(def.getDeploymentId(), resource);
@@ -129,43 +130,43 @@ public class ActivitiController {
 		IOUtils.copy(is, output);
 	}
 	
-	@RequestMapping("/deletedeploy")
+	@RequestMapping(value="/deletedeploy",method = RequestMethod.GET)
 	public String deletedeploy(@RequestParam("deployid") String deployid) throws Exception{
 		rep.deleteDeployment(deployid,true);
 		return "activiti/processlist";
 	}
 	
-	@RequestMapping("/runningprocess")
+	@RequestMapping(value="/runningprocess",method = RequestMethod.GET)
 	public String task(){
 		return "activiti/runningprocess";
 	} 
 	
-	@RequestMapping("/deptleaderaudit")
+	@RequestMapping(value="/deptleaderaudit",method = RequestMethod.GET)
 	public String mytask(){
 		return "activiti/deptleaderaudit"; 
 	}
 	
-	@RequestMapping("/hraudit")
+	@RequestMapping(value="/hraudit",method = RequestMethod.GET)
 	public String hr(){
 		return "activiti/hraudit"; 
 	}
 	
-	@RequestMapping("/index")
+	@RequestMapping(value="/index",method = RequestMethod.GET)
 	public String my(){
 		return "index"; 
 	}
 	
-	@RequestMapping("/leaveapply")
+	@RequestMapping(value="/leaveapply",method = RequestMethod.GET)
 	public String leave(){
 		return "activiti/leaveapply"; 
 	}
 	
-	@RequestMapping("/reportback")
+	@RequestMapping(value="/reportback",method = RequestMethod.GET)
 	public String reprotback(){
 		return "activiti/reportback"; 
 	}
 	
-	@RequestMapping("/modifyapply")
+	@RequestMapping(value="/modifyapply",method = RequestMethod.GET)
 	public String modifyapply(){
 		return "activiti/modifyapply"; 
 	}
@@ -180,7 +181,8 @@ public class ActivitiController {
 		return JSON.toJSONString("sucess");
 	}
 	
-	@RequestMapping(value="/depttasklist",produces = {"application/json;charset=UTF-8"})
+	@ApiOperation("获取部门领导审批代办列表")
+	@RequestMapping(value="/depttasklist",produces = {"application/json;charset=UTF-8"},method = RequestMethod.GET)
 	@ResponseBody
 	public DataGrid<LeaveTask> getdepttasklist(HttpSession session,@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
 		DataGrid<LeaveTask> grid=new DataGrid<LeaveTask>();
@@ -243,7 +245,7 @@ public class ActivitiController {
 			}
 	}
 	
-	@RequestMapping(value="/hrtasklist",produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value="/hrtasklist",produces = {"application/json;charset=UTF-8"},method = RequestMethod.GET)
 	@ResponseBody
 	public DataGrid<LeaveTask> gethrtasklist(HttpSession session,@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
 		DataGrid<LeaveTask> grid=new DataGrid<LeaveTask>();
@@ -306,7 +308,7 @@ public class ActivitiController {
 			}
 	}
 	
-	@RequestMapping(value="/xjtasklist",produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value="/xjtasklist",produces = {"application/json;charset=UTF-8"},method = RequestMethod.GET)
 	@ResponseBody
 	public String getXJtasklist(HttpSession session,@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
 		int firstrow=(current-1)*rowCount;
@@ -339,7 +341,7 @@ public class ActivitiController {
 	}
 	
 	
-	@RequestMapping(value="/updatetasklist",produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value="/updatetasklist",produces = {"application/json;charset=UTF-8"},method = RequestMethod.GET)
 	@ResponseBody
 	public String getupdatetasklist(HttpSession session,@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
 		int firstrow=(current-1)*rowCount;
@@ -371,7 +373,7 @@ public class ActivitiController {
 		return JSON.toJSONString(grid);
 	}
 	
-	@RequestMapping(value="/dealtask")
+	@RequestMapping(value="/dealtask",method = RequestMethod.GET)
 	@ResponseBody
 	public String taskdeal(@RequestParam("taskid") String taskid,HttpServletResponse response){
 		Task task=taskservice.createTaskQuery().taskId(taskid).singleResult();
@@ -380,12 +382,12 @@ public class ActivitiController {
 		return JSON.toJSONString(leave);
 	}
 	
-	@RequestMapping(value="/activiti/task-deptleaderaudit")
+	@RequestMapping(value="/activiti/task-deptleaderaudit",method = RequestMethod.GET)
 	String url(){
 		return "/activiti/task-deptleaderaudit";
 	}
 	
-	@RequestMapping(value="/task/deptcomplete/{taskid}")
+	@RequestMapping(value="/task/deptcomplete/{taskid}",method = RequestMethod.GET)
 	@ResponseBody
 	public String deptcomplete(HttpSession session,@PathVariable("taskid") String taskid,HttpServletRequest req){
 		String userid=(String) session.getAttribute("username");
@@ -397,7 +399,7 @@ public class ActivitiController {
 		return JSON.toJSONString("success");
 	}
 	
-	@RequestMapping(value="/task/hrcomplete/{taskid}")
+	@RequestMapping(value="/task/hrcomplete/{taskid}",method = RequestMethod.GET)
 	@ResponseBody
 	public String hrcomplete(HttpSession session,@PathVariable("taskid") String taskid,HttpServletRequest req){
 		String userid=(String) session.getAttribute("username");
@@ -409,7 +411,7 @@ public class ActivitiController {
 		return JSON.toJSONString("success");
 	}
 	
-	@RequestMapping(value="/task/reportcomplete/{taskid}")
+	@RequestMapping(value="/task/reportcomplete/{taskid}",method = RequestMethod.GET)
 	@ResponseBody
 	public String reportbackcomplete(@PathVariable("taskid") String taskid,HttpServletRequest req){
 		String realstart_time=req.getParameter("realstart_time");
@@ -418,14 +420,14 @@ public class ActivitiController {
 		return JSON.toJSONString("success");
 	}
 	
-	@RequestMapping(value="/task/updatecomplete/{taskid}")
+	@RequestMapping(value="/task/updatecomplete/{taskid}",method = RequestMethod.GET)
 	@ResponseBody
 	public String updatecomplete(@PathVariable("taskid") String taskid,@ModelAttribute("leave") LeaveApply leave,@RequestParam("reapply") String reapply){
 		leaveservice.updatecomplete(taskid,leave,reapply);
 		return JSON.toJSONString("success");
 	}
 	
-	@RequestMapping("involvedprocess")//参与的正在运行的请假流程
+	@RequestMapping(value="involvedprocess",method = RequestMethod.GET)//参与的正在运行的请假流程
 	@ResponseBody
 	public DataGrid<RunningProcess> allexeution(HttpSession session,@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
 		int firstrow=(current-1)*rowCount;
@@ -450,7 +452,7 @@ public class ActivitiController {
 		return grid;
 	}
 	
-	@RequestMapping("/getfinishprocess")
+	@RequestMapping(value="/getfinishprocess",method = RequestMethod.GET)
 	@ResponseBody
 	public DataGrid<HistoryProcess> getHistory(HttpSession session,@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
 		String userid=(String) session.getAttribute("username");
@@ -477,34 +479,33 @@ public class ActivitiController {
 	}
 	
 	
-	@RequestMapping("/historyprocess")
+	@RequestMapping(value="/historyprocess",method = RequestMethod.GET)
 	public String history(){
 		return "activiti/historyprocess";
 	}
 	
 	
-	@RequestMapping("/processinfo")
+	@RequestMapping(value="/processinfo",method = RequestMethod.GET)
 	@ResponseBody
 	public List<HistoricActivityInstance> processinfo(@RequestParam("instanceid")String instanceid){
 		  List<HistoricActivityInstance> his = histiryservice.createHistoricActivityInstanceQuery().processInstanceId(instanceid).orderByHistoricActivityInstanceStartTime().asc().list();
 		  return his;
 	}
 	
-	@RequestMapping("/processhis")
+	@RequestMapping(value="/processhis",method = RequestMethod.GET)
 	@ResponseBody
 	public List<HistoricActivityInstance> processhis(@RequestParam("ywh")String ywh){
 		  String instanceid=histiryservice.createHistoricProcessInstanceQuery().processDefinitionKey("purchase").processInstanceBusinessKey(ywh).singleResult().getId();
-		  System.out.println(instanceid);
 		  List<HistoricActivityInstance> his = histiryservice.createHistoricActivityInstanceQuery().processInstanceId(instanceid).orderByHistoricActivityInstanceStartTime().asc().list();
 		  return his;
 	}
 	
-	@RequestMapping("myleaveprocess")
+	@RequestMapping(value="myleaveprocess",method = RequestMethod.GET)
 	String myleaveprocess(){
 		return "activiti/myleaveprocess";
 	}
 	
-	@RequestMapping("traceprocess/{executionid}")
+	@RequestMapping(value="traceprocess/{executionid}",method = RequestMethod.GET)
 	public void traceprocess(@PathVariable("executionid")String executionid,HttpServletResponse response) throws Exception{
 		ProcessInstance process=runservice.createProcessInstanceQuery().processInstanceId(executionid).singleResult();
 		BpmnModel bpmnmodel=rep.getBpmnModel(process.getProcessDefinitionId());
@@ -526,12 +527,12 @@ public class ActivitiController {
 		IOUtils.copy(in, output);
 	}
 	
-	@RequestMapping("myleaves")
+	@RequestMapping(value="myleaves",method = RequestMethod.GET)
 	String myleaves(){
 		return "activiti/myleaves";
 	}
 	
-	@RequestMapping("setupprocess")
+	@RequestMapping(value="setupprocess",method = RequestMethod.GET)
 	@ResponseBody
 	public DataGrid<RunningProcess> setupprocess(HttpSession session,@RequestParam("current") int current,@RequestParam("rowCount") int rowCount){
 		int firstrow=(current-1)*rowCount;

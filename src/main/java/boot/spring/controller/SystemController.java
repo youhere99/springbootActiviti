@@ -21,23 +21,23 @@ import boot.spring.po.UserRole;
 import boot.spring.service.SystemService;
 import io.swagger.annotations.Api;
 
-@Api(tags = "系统管理接口")
+@Api(value = "系统管理接口")
 @Controller
 public class SystemController {
 	@Autowired
 	SystemService systemservice;
 	
-	@RequestMapping("/useradmin")
+	@RequestMapping(value="/useradmin",method=RequestMethod.GET)
 	String useradmin(){
 		return "system/useradmin";
 	}
 	
-	@RequestMapping("/roleadmin")
+	@RequestMapping(value="/roleadmin",method=RequestMethod.GET)
 	String roleadmin(){
 		return "system/roleadmin";
 	}
 	
-	@RequestMapping("/permissionadmin")
+	@RequestMapping(value="/permissionadmin",method=RequestMethod.GET)
 	String permissionadmin(){
 		return "system/permissionadmin";
 	}

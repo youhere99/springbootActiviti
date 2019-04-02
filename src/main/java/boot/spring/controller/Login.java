@@ -13,13 +13,13 @@ import boot.spring.service.LoginService;
 import io.swagger.annotations.Api;
 
 
-@Api(tags = "登录登出接口")
+@Api(value = "登录登出接口")
 @Controller
 public class Login {
 	@Autowired
 	LoginService loginservice;
 	
-	@RequestMapping("/loginvalidate")
+	@RequestMapping(value="/loginvalidate",method = RequestMethod.GET)
 	public String loginvalidate(@RequestParam("username") String username,@RequestParam("password") String pwd,HttpSession httpSession){
 		if(username==null)
 			return "login";
@@ -32,12 +32,12 @@ public class Login {
 			return "fail";
 	}
 	
-	@RequestMapping("/login")
+	@RequestMapping(value="/login",method = RequestMethod.GET)
 	public String login(){
 		return "login";
 	}
 	
-	@RequestMapping("/logout")
+	@RequestMapping(value="/logout",method = RequestMethod.GET)
 	public String logout(HttpSession httpSession){
 		httpSession.removeAttribute("username");
 		return "login";

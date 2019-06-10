@@ -109,7 +109,7 @@ public class SystemController {
 		return "system/useradmin";
 	}
 	
-	@RequestMapping(value="/adduser")
+	@RequestMapping(value="/adduser",method=RequestMethod.GET)
 	String adduser(@ModelAttribute("user")User user,@RequestParam(value="rolename[]",required = false)String[] rolename){
 		if(rolename==null)
 			systemservice.adduser(user);

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="timerStartEvent" isExecutable="true">
+    <startEvent id="sid-B51BA61F-F3FA-489E-8E50-87AEED50C3B3">
+      <timerEventDefinition>
+        <timeCycle>R2/2017-06-27T20:45/PT1M</timeCycle>
+      </timerEventDefinition>
+    </startEvent>
+    <manualTask id="sid-15215C7C-14D0-4460-9BB1-4DE865EA03A7" name="手工任务">
+      <extensionElements>
+        <activiti:executionListener event="start" class="light.mvc.workflow.serviceTask.TimerTestRunningTask"></activiti:executionListener>
+      </extensionElements>
+    </manualTask>
+    <endEvent id="sid-11AC64F4-17C1-489A-9BED-0FCCDBAF5602"></endEvent>
+    <sequenceFlow id="sid-15E29826-5274-4586-A743-A728B87EBB00" sourceRef="sid-15215C7C-14D0-4460-9BB1-4DE865EA03A7" targetRef="sid-11AC64F4-17C1-489A-9BED-0FCCDBAF5602"></sequenceFlow>
+    <sequenceFlow id="sid-228F25A5-209F-4239-852E-F0B734F115A4" sourceRef="sid-B51BA61F-F3FA-489E-8E50-87AEED50C3B3" targetRef="sid-15215C7C-14D0-4460-9BB1-4DE865EA03A7"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_timerStartEvent">
+    <bpmndi:BPMNPlane bpmnElement="timerStartEvent" id="BPMNPlane_timerStartEvent">
+      <bpmndi:BPMNShape bpmnElement="sid-B51BA61F-F3FA-489E-8E50-87AEED50C3B3" id="BPMNShape_sid-B51BA61F-F3FA-489E-8E50-87AEED50C3B3">
+        <omgdc:Bounds height="35.0" width="35.0" x="161.0" y="91.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-15215C7C-14D0-4460-9BB1-4DE865EA03A7" id="BPMNShape_sid-15215C7C-14D0-4460-9BB1-4DE865EA03A7">
+        <omgdc:Bounds height="80.0" width="100.0" x="313.0" y="67.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-11AC64F4-17C1-489A-9BED-0FCCDBAF5602" id="BPMNShape_sid-11AC64F4-17C1-489A-9BED-0FCCDBAF5602">
+        <omgdc:Bounds height="35.0" width="35.0" x="458.0" y="93.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-15E29826-5274-4586-A743-A728B87EBB00" id="BPMNEdge_sid-15E29826-5274-4586-A743-A728B87EBB00">
+        <omgdi:waypoint x="413.0" y="107.0"></omgdi:waypoint>
+        <omgdi:waypoint x="458.0" y="110.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-228F25A5-209F-4239-852E-F0B734F115A4" id="BPMNEdge_sid-228F25A5-209F-4239-852E-F0B734F115A4">
+        <omgdi:waypoint x="196.0" y="108.0"></omgdi:waypoint>
+        <omgdi:waypoint x="313.0" y="107.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

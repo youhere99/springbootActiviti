@@ -1,0 +1,45 @@
+logging:
+  level:
+    boot:
+      spring:
+        controller: DEBUG
+    org:
+      activiti: DEBUG
+      apache: INFO
+      mybatis: INFO
+    root: INFO
+  path: /var/log/sakila
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: boot.spring.po
+server:
+  port: 8080
+  
+spring:
+  activiti:
+    check-process-definitions: true
+    database-schema-update: true
+    history-level: full
+    process-definition-location-prefix: classpath:/process/
+    mail-server-default-from: xingxing20092010@126.com
+    mail-server-password: xingxing20092010
+    mail-server-host: smtp.126.com
+    mail-server-port: 25
+    mail-server-user-name: xingxing20092010@126.com
+    job-executor-activate: true
+    
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/activiti?characterEncoding=utf8&useSSL=false
+    password: root
+    username: root
+  thymeleaf:
+    mode: LEGACYHTML5
+    cache: false
+security:
+  user:
+    name: root
+    password: root  
+  basic:
+    enabled: false
